@@ -1,0 +1,32 @@
+.footer {
+  background-color: #031d33;
+  display: flex;
+  color: white;
+  height: 325px;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.footer .footerUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer .footerUser img {
+  width: 130px;
+  margin-bottom: 35px;
+}
+.footer .footerUser a {
+  color: rgb(1, 180, 228);
+  padding: 8px 16px;
+  width: 100%;
+  font-size: 1.3em;
+  font-weight: 700;
+      border-radius: 5px;
+  background-color: white;
+}
+table thead th {
+  width: 150px;
+  text-align: start;
+}

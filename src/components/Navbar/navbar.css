@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #042541;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.navbar-wrapper-menu {
+  display: flex;
+  gap: 14px;
+  cursor: pointer;
+
+  color: white;
+}
+
+.navbar-wrapper-menu-item {
+  padding: 8px;
+  position: relative;
+}
+
+.navbar-wrapper-menu-item:nth-child(1) {
+  width: 170px;
+}
+
+.rightUser {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  cursor: pointer;
+  color: white;
+}
+
+.rightUser .lang {
+  border: 1px solid white;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.rightUser .profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(210 144 1);
+  border-radius: 50%;
+  padding: 4px 10px;
+}
+
+.moviesToggle {
+  background-color: white;
+  color: black;
+  z-index: 5;
+  display: none;
+  padding: 10px 30px;
+  border-radius: 8px;
+  position: absolute;
+  left: 0;
+  top: 100%;
+}
+.moviesToggle li {
+  padding: 3px 5px;
+  width: 120px;
+}
+
+.navbar-wrapper-menu-item:hover .moviesToggle {
+  display: block;
+}

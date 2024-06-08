@@ -1,0 +1,107 @@
+.sectOne {
+  width: 1300px;
+  margin: 0 auto;
+  /* height: 50vh; */
+  background-image: linear-gradient(
+    to bottom right,
+    #221d93 0%,
+    #4958ab 30%,
+    #91ced8 100%
+  );
+}
+
+.sectOne .texts {
+  padding: 30px 40px;
+  color: white;
+}
+.sectOne .texts h2 {
+  font-size: 48px;
+}
+.sectOne .texts h3 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+.sectOne .texts .search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  border-radius: 30px;
+  overflow: hidden;
+  padding: 0 0 0 20px;
+}
+.sectOne .texts .search input {
+  height: 46px;
+  border: none;
+  font-size: 1.1em;
+  width: calc(100% - 91px);
+  outline: none;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.sectOne .texts .search button {
+  height: 46px;
+  padding: 10px 26px;
+  border: 0;
+  background-image: linear-gradient(
+    to right,
+    rgba(30, 213, 169, 1) 0%,
+    rgba(1, 180, 228, 1) 100%
+  );
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+.sectOne .oscars {
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.sectOne .oscars img {
+  width: 300px;
+}
+.sectOne .oscars button {
+  width: 172.3px;
+  color: #fff;
+  padding: 8px 16px;
+  border: 2px solid #fff;
+  background: none;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+}
+.trendingMovies {
+  width: 1250px;
+  margin: 0 auto;
+}
+.trendingMoviesToggle {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 0;
+}
+.homeCardWrapper {
+  display: flex;
+  gap: 10px;
+  overflow-x: scroll;
+}
+.homeCardWrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.homeCardWrapper .card {
+  min-width: 150px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(141, 140, 140, 0.782);
+  border-radius: 20px;
+}
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}

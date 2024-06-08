@@ -1,0 +1,27 @@
+.searchResults {
+  width: 80vw;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+.searchResults .searchCard {
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(227, 227, 227, 1);
+  background-color: #fff;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.searchCard img {
+    height: 141px;
+  width: 94px;
+  
+}
+.searchCard .searchTexts{
+    padding: 10px 15px;
+}
+.searchCard .searchTexts h4{
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+}

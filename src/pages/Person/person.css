@@ -1,0 +1,27 @@
+.personContainer {
+  margin: 0 auto;
+  width: 1320px;
+  padding: 30px 0;
+}
+.personContainer h2 {
+  margin-bottom: 30px;
+}
+.personContainer .cardWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 30px;
+}
+.personContainer .cardWrapper .card {
+  width: 315px;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.personContainer .cardWrapper .card .cardImg {
+  height: 315px;
+  overflow: hidden;
+}
+.personContainer .cardWrapper .card .cardPersonBody {
+  padding: 8px 10px;
+}
