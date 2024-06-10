@@ -6,18 +6,19 @@ import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
 
 function OnTV() {
-  const [popularMovies, setPopularMovies] = useState([]);
+  const [onTvShows, setOnTvShows] = useState([]);
   const [loader, setLoader] = useState(true);
-  async function getPopularTvMovies() {
+
+  async function getOnTvShows() {
     const resp = await tvShow.getMoviesByName(
       "airing_today?language=en-US&page=1"
     );
-    setPopularMovies(resp.results);
+    setOnTvShows(resp.results);
     setLoader(false);
   }
 
   useEffect(() => {
-    getPopularTvMovies();
+    getOnTvShows();
   }, []);
 
   if (loader) {
@@ -35,7 +36,7 @@ function OnTV() {
   }
   return (
     <div className="moviesContainer">
-      <h2>Popular Movies</h2>
+      <h2>On TV</h2>
       <div className="moviesWrapper">
         <div className="moviesFilter">
           <div className="sort">
@@ -49,7 +50,7 @@ function OnTV() {
           <button className="filterSearch">Search</button>
         </div>
         <div className="moviesCards">
-          {popularMovies?.map((item, index) => {
+          {onTvShows?.map((item, index) => {
             return (
               <div key={index} className="card">
                 <span className="material-symbols-outlined moreIcon">
@@ -66,8 +67,8 @@ function OnTV() {
                       <sup>%</sup>
                     </p>
                   </span>
-                  <h1>{item.original_title}</h1>
-                  <p>{convertDate(item.release_date)}</p>
+                  <h1>{item.name}</h1>
+                  <p>{convertDate(item.first_air_date)}</p>
                 </div>
               </div>
             );

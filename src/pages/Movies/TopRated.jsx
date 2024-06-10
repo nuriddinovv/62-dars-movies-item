@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SpinnerCircular } from "spinners-react";
 import movies from "../../repository/movies";
-import "./default.css";
-
 import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
-import { SpinnerCircular } from "spinners-react";
+import "./default.css";
 
 function TopRated() {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [loader, setLoader] = useState(true);
+  const navigate = useNavigate();
 
   async function getTopRatedMovies() {
     const resp = await movies.getMoviesByName(
@@ -21,6 +22,7 @@ function TopRated() {
   useEffect(() => {
     getTopRatedMovies();
   }, []);
+
   if (loader) {
     return (
       <div className="loader">
@@ -34,6 +36,11 @@ function TopRated() {
       </div>
     );
   }
+
+  const handleClick = (id) => {
+    navigate(`/movies/${id}`);
+  };
+
   return (
     <div className="moviesContainer">
       <h2>Top Rated Movies</h2>
@@ -53,10 +60,7 @@ function TopRated() {
           {topRatedMovies?.map((item, index) => {
             return (
               <div
-                onClick={() => {
-                  // return movie;
-                  console.log(item);
-                }}
+                onClick={() => handleClick(item.id)}
                 key={index}
                 className="card"
               >

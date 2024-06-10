@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SpinnerCircular } from "spinners-react";
 import movies from "../../repository/movies";
-import "./default.css";
-
 import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
-import { SpinnerCircular } from "spinners-react";
+import "./default.css";
+
 function Upcoming() {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [loader, setLoader] = useState(true);
+  const navigate = useNavigate(); // useNavigate hookini qo'shamiz
 
-  async function getupcomingMovies() {
+  async function getUpcomingMovies() {
     const resp = await movies.getMoviesByName("upcoming?language=en-US&page=1");
     setUpcomingMovies(resp.results);
     setLoader(false);
   }
 
   useEffect(() => {
-    getupcomingMovies();
+    getUpcomingMovies();
   }, []);
+
   if (loader) {
     return (
       <div className="loader">
@@ -31,6 +34,11 @@ function Upcoming() {
       </div>
     );
   }
+
+  const handleClick = (id) => {
+    navigate(`/movies/${id}`); // navigate orqali boshqa sahifaga o'tamiz
+  };
+
   return (
     <div className="moviesContainer">
       <h2>Upcoming Movies</h2>
@@ -51,8 +59,7 @@ function Upcoming() {
             return (
               <div
                 onClick={() => {
-                  // return movie;
-                  console.log(item);
+                  handleClick(item.id);
                 }}
                 key={index}
                 className="card"

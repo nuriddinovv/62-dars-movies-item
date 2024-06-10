@@ -5,12 +5,14 @@ import "./default.css";
 import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
+import { useNavigate } from "react-router-dom";
 
 function NowPlaying() {
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
   const [loader, setLoader] = useState(true);
+  const navigate = useNavigate(); 
 
-  async function getnowPlayingMovies() {
+  async function getNowPlayingMovies() {
     const resp = await movies.getMoviesByName(
       "now_playing?language=en-US&page=1"
     );
@@ -19,8 +21,9 @@ function NowPlaying() {
   }
 
   useEffect(() => {
-    getnowPlayingMovies();
+    getNowPlayingMovies();
   }, []);
+
   if (loader) {
     return (
       <div className="loader">
@@ -34,6 +37,11 @@ function NowPlaying() {
       </div>
     );
   }
+
+  const handleClick = (id) => {
+    navigate(`/movies/${id}`); 
+  };
+
   return (
     <div className="moviesContainer">
       <h2>Now Playing Movies</h2>
@@ -53,10 +61,7 @@ function NowPlaying() {
           {nowPlayingMovies?.map((item, index) => {
             return (
               <div
-                onClick={() => {
-                  // return movie;
-                  console.log(item);
-                }}
+                onClick={() => handleClick(item.id)}
                 key={index}
                 className="card"
               >

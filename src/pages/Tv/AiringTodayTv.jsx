@@ -4,20 +4,27 @@ import "./default.css";
 import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
+import { useNavigate } from "react-router-dom";
 
 function AiringTodayTv() {
-  const [popularMovies, setPopularMovies] = useState([]);
+  const [airingTodayTvShows, setAiringTodayTvShows] = useState([]);
   const [loader, setLoader] = useState(true);
-  async function getPopularTvMovies() {
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/tv/${id}`);
+  };
+  async function getAiringTodayTvShows() {
     const resp = await tvShow.getMoviesByName(
       "airing_today?language=en-US&page=1"
     );
-    setPopularMovies(resp.results);
+    setAiringTodayTvShows(resp.results);
     setLoader(false);
+    console.log(resp.results);
   }
 
   useEffect(() => {
-    getPopularTvMovies();
+    getAiringTodayTvShows();
   }, []);
 
   if (loader) {
@@ -33,9 +40,10 @@ function AiringTodayTv() {
       </div>
     );
   }
+
   return (
     <div className="moviesContainer">
-      <h2>Popular Movies</h2>
+      <h2>Airing Today TV Shows</h2>
       <div className="moviesWrapper">
         <div className="moviesFilter">
           <div className="sort">
@@ -49,9 +57,15 @@ function AiringTodayTv() {
           <button className="filterSearch">Search</button>
         </div>
         <div className="moviesCards">
-          {popularMovies?.map((item, index) => {
+          {airingTodayTvShows?.map((item, index) => {
             return (
-              <div key={index} className="card">
+              <div
+                onClick={() => {
+                  handleClick(item.id);
+                }}
+                key={index}
+                className="card"
+              >
                 <span className="material-symbols-outlined moreIcon">
                   more_horiz
                 </span>
@@ -66,8 +80,8 @@ function AiringTodayTv() {
                       <sup>%</sup>
                     </p>
                   </span>
-                  <h1>{item.original_title}</h1>
-                  <p>{convertDate(item.release_date)}</p>
+                  <h1>{item.name}</h1>
+                  <p>{convertDate(item.first_air_date)}</p>
                 </div>
               </div>
             );
