@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
-import filterChevron from "../../img/moviesFilter.svg";
-import { convertDate } from "../../repository/dataConvert";
-import movies from "../../repository/movies";
-import "./default.css";
-
-function Movies() {
-  const [popularMovies, setPopularMovies] = useState([]);
+import movies from "../../repository/tvShow";
+import "./selectedMovie.css";
+function MovieById() {
+  const [selectedMovie, setSelectedMovie] = useState({});
   const [loader, setLoader] = useState(true);
-  const navigate = useNavigate();
+  const params = useParams();
 
-  async function getPopularMovies() {
-    const resp = await movies.getMoviesByName("popular?language=en-US&page=1");
-    setPopularMovies(resp.results);
+  const getMovieById = async () => {
+    const response = await movies.getMoviesByName(
+      `${params.id}?language=en-US`
+    );
+    setSelectedMovie(response);
     setLoader(false);
-  }
+  };
 
   useEffect(() => {
-    getPopularMovies();
-  }, []);
+    getMovieById();
+  }, [params.id]);
 
   if (loader) {
     return (
@@ -35,59 +34,22 @@ function Movies() {
     );
   }
 
-  const handleClick = (id) => {
-    navigate(`/movies/${id}`);
-  };
-
   return (
-    <div className="moviesContainer">
-      <h2>Popular Movies</h2>
-      <div className="moviesWrapper">
-        <div className="moviesFilter">
-          <div className="sort">
-            <h3>Sort</h3>
-            <img src={filterChevron} alt="filter chevron" />
-          </div>
-          <div className="sort">
-            <h3>Filters</h3>
-            <img src={filterChevron} alt="filter chevron" />
-          </div>
-          <button className="filterSearch">Search</button>
-        </div>
-        <div className="moviesCards">
-          {popularMovies?.map((item, index) => {
-            return (
-              <div
-                onClick={() => {
-                  handleClick(item.id);
-                }}
-                key={index}
-                className="card"
-              >
-                <span className="material-symbols-outlined moreIcon">
-                  more_horiz
-                </span>
-                <img
-                  src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
-                  alt=""
-                />
-                <div className="cardBody">
-                  <span>
-                    {Math.round(item.vote_average * 10)}
-                    <p>
-                      <sup>%</sup>
-                    </p>
-                  </span>
-                  <h1>{item.original_title}</h1>
-                  <p>{convertDate(item.release_date)}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+    <div
+      style={{
+        backgroundImage: `url(https://media.themoviedb.org/t/p/w440_and_h660_face/${selectedMovie.backdrop_path})`,
+      }}
+      className="selectedMovie"
+    >
+      <div className="selectedMovieContainer">
+        <img
+          src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${selectedMovie.poster_path}`}
+          alt=""
+        />
+        <div className="text"></div>
       </div>
     </div>
   );
 }
 
-export default Movies;
+export default MovieById;
