@@ -5,6 +5,7 @@ import movies from "../../repository/movies";
 import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
 import "./default.css";
+import { CustomCircularProgress } from "../../repository/CircularProgress";
 
 function Upcoming() {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
@@ -73,10 +74,9 @@ function Upcoming() {
                 />
                 <div className="cardBody">
                   <span>
-                    {Math.round(item.vote_average * 10)}
-                    <p>
-                      <sup>%</sup>
-                    </p>
+                    <CustomCircularProgress
+                      value={Math.round(item.vote_average * 10)}
+                    />
                   </span>
                   <h1>{item.original_title}</h1>
                   <p>{convertDate(item.release_date)}</p>

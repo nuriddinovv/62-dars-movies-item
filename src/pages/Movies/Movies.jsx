@@ -5,6 +5,7 @@ import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
 import movies from "../../repository/movies";
 import "./default.css";
+import { CustomCircularProgress } from "../../repository/CircularProgress";
 
 function Movies() {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -72,11 +73,10 @@ function Movies() {
                   alt=""
                 />
                 <div className="cardBody">
-                  <span>
-                    {Math.round(item.vote_average * 10)}
-                    <p>
-                      <sup>%</sup>
-                    </p>
+                  <span >
+                    <CustomCircularProgress
+                      value={Math.round(item.vote_average * 10)}
+                    />
                   </span>
                   <h1>{item.original_title}</h1>
                   <p>{convertDate(item.release_date)}</p>

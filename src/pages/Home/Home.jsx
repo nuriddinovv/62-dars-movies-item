@@ -4,6 +4,7 @@ import Oscar from "../../img/homeOscars.svg";
 import ToggleButton from "../../repository/btn/toggleBtn";
 import homeTrending from "../../repository/homeTrending";
 import "./home.css";
+import { CustomCircularProgress } from "../../repository/CircularProgress";
 
 function Home() {
   const [trendData, setTrendData] = useState([]);
@@ -17,7 +18,11 @@ function Home() {
     );
     setTrendData(resp.results);
   }
+  const navigate = useNavigate();
 
+  const handleClick = (id) => {
+    navigate(`/movies/${id}`);
+  };
   useEffect(() => {
     getPopularMovies();
   }, []);
@@ -65,9 +70,7 @@ function Home() {
             return (
               <div
                 onClick={() => {
-                  // return movie;
-                  setNewMovie(item);
-                  console.log(item);
+                  handleClick(item.id)
                 }}
                 className="card"
                 key={index}
@@ -79,10 +82,9 @@ function Home() {
                 />
                 <div className="cardBody">
                   <span>
-                    {Math.round(item.vote_average * 10)}
-                    <p>
-                      <sup>%</sup>
-                    </p>
+                    <CustomCircularProgress
+                      value={Math.round(item.vote_average * 10)}
+                    />
                   </span>
                   <h1>{item.original_title}</h1>
                 </div>

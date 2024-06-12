@@ -5,6 +5,7 @@ import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
 import { useNavigate } from "react-router-dom";
+import { CustomCircularProgress } from "../../repository/CircularProgress";
 
 function Tv() {
   const [popularTvShows, setPopularTvShows] = useState([]);
@@ -26,6 +27,7 @@ function Tv() {
     getPopularTvShows();
   }, []);
 
+  
   if (loader) {
     return (
       <div className="loader">
@@ -73,10 +75,9 @@ function Tv() {
                 />
                 <div className="cardBody">
                   <span>
-                    {Math.round(item.vote_average * 10)}
-                    <p>
-                      <sup>%</sup>
-                    </p>
+                    <CustomCircularProgress
+                      value={Math.round(item.vote_average * 10)}
+                    />
                   </span>
                   <h1>{item.name}</h1>
                   <p>{convertDate(item.first_air_date)}</p>

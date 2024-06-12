@@ -1,7 +1,6 @@
 .moviesContainer {
   margin: 0 auto;
   width: 1320px;
-
   padding: 30px 0;
 }
 .moviesContainer h2 {
@@ -11,8 +10,6 @@
 }
 .moviesWrapper {
   display: flex;
-  /* flex-wrap: wrap; */
-  /* flex-direction: column; */
   gap: 12px;
 }
 .moviesWrapper .moviesFilter {
@@ -75,29 +72,17 @@
 }
 .card .cardBody {
   position: relative;
-
   padding: 26px 10px 12px;
+}
+.cardBody span{
+  position: absolute;
+  background-color: rgb(8, 28, 34);
+  border-radius: 50%;
+  top: -20px;
 }
 .card p {
   font-size: 16px;
   color: rgba(0, 0, 0, 0.6);
-}
-.cardBody span {
-  display: block;
-  position: absolute;
-  background-color: #081c22;
-  color: white;
-  text-align: center;
-  top: -19px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 10px;
-  width: 34px;
-  height: 34px;
-  padding: 2px;
-  font-weight: 700;
 }
 .moreIcon {
   position: absolute;
@@ -108,9 +93,6 @@
   top: 5px;
   background-color: #d6d6d68e;
   height: 25px;
-}
-span sup {
-  color: white;
 }
 
 .loader {
