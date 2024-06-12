@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { convertDate } from "../../repository/dataConvert";
 import "./searchPage.css";
 function SearchPage() {
@@ -29,15 +29,17 @@ function SearchPage() {
         .catch((err) => console.error(err));
     }
   }, [searchQuery]);
-
+  const navigate = useNavigate();
+  const handleClick = (id) => {
+    navigate(`/tv/${id}`);
+  };
   return (
     <div className="searchResults">
       {searchData.map((movie) => {
         return (
           <div
             onClick={() => {
-              // return movie;
-              console.log(movie);
+              handleClick(movie.id);
             }}
             className="searchCard"
             key={movie.id}
