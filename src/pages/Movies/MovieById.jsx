@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
 import selectedMovieId from "../../repository/selectedMovieId";
 import "./selectedMovie.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
-import { Modal } from "@mui/material";
+import { LangContext } from "../../context/Context";
 function MovieById() {
   const [selectedMovie, setSelectedMovie] = useState({});
   const [loader, setLoader] = useState(true);
   const params = useParams();
   const [modal, setModal] = useState(false);
-
+  const { lang } = useContext(LangContext);
   const getMovieById = async () => {
     const response = await selectedMovieId.getMoviesById(
-      `${params.id}?language=en-US`,
+      `${params.id}?language=${lang}`,
       "movie"
     );
     setSelectedMovie(response);
@@ -22,7 +22,7 @@ function MovieById() {
 
   useEffect(() => {
     getMovieById();
-  }, [params.id]);
+  }, [params.id, lang]);
 
   if (loader) {
     return (
@@ -70,7 +70,6 @@ function MovieById() {
             onClick={() => {
               setModal(true);
             }}
-            
             src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${selectedMovie.poster_path}`}
             alt=""
           />

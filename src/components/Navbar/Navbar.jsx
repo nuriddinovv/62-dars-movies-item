@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import { LangContext } from "../../context/Context";
 
 function Navbar() {
   const moviesToggleData = [
@@ -32,7 +33,7 @@ function Navbar() {
     { text: "People", path: "/person" },
     { text: "More", path: "/more" },
   ];
-
+  const { lang, setLang } = useContext(LangContext);
   return (
     <div className="navbar">
       <div className="container">
@@ -48,15 +49,17 @@ function Navbar() {
                 </Link>
                 {nav_menu.text === "Movies" && (
                   <div className="moviesToggle">
-                    <ul>
-                      {moviesToggleData.map((item, index) => (
-                        <li key={index}>
-                          <Link to={item.path} className="">
-                            {item.text}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    {lang === "en" ? (
+                      <ul>
+                        {moviesToggleData.map((item, index) => (
+                          <li key={index}>
+                            <Link to={item.path} className="">
+                              {item.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : <ul>aa</ul>}
                   </div>
                 )}
                 {nav_menu.text === "TV Shows" && (
@@ -90,7 +93,14 @@ function Navbar() {
           </ul>
           <div className="rightUser">
             <span className="material-symbols-outlined">add</span>
-            <div className="lang">EN</div>
+            <div
+              className="lang"
+              onClick={() => {
+                setLang(lang === "en" ? "ru" : "en");
+              }}
+            >
+              {lang === "ru" ? "EN" : "RU"}
+            </div>
             <span className="material-symbols-outlined">notifications</span>
             <span className="profile">N</span>
             <span

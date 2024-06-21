@@ -16,28 +16,31 @@ import TopRatedTv from "./pages/Tv/TopRatedTv";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import MovieById from "./pages/Movies/MovieById";
 import TvShowById from "./pages/Tv/ShowSelected";
+import Context from "./context/Context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route element={<DashboardLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/now_playing" element={<Nowplaying />} />
-        <Route path="/movies/upcoming" element={<Upcoming />} />
-        <Route path="/movies/top_rated" element={<TopRated />} />
-        <Route path="/movies/:id" element={<MovieById />} />
-        <Route path="/tv" element={<TV />} />
-        <Route path="/tv/popular" element={<TV />} />
-        <Route path="/tv/airing-today" element={<AiringTodayTv />} />
-        <Route path="/tv/on-the-air" element={<OnTV />} />
-        <Route path="/tv/top-rated" element={<TopRatedTv />} />
-        <Route path="/tv/:id" element={<TvShowById />} />
-        <Route path="/person" element={<Person />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="*" />{" "}
-      </Route>
-    </Routes>
-  </BrowserRouter>
+  <Context>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<DashboardLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/now_playing" element={<Nowplaying />} />
+          <Route path="/movies/upcoming" element={<Upcoming />} />
+          <Route path="/movies/top_rated" element={<TopRated />} />
+          <Route path="/movies/:id" element={<MovieById />} />
+          <Route path="/tv" element={<TV />} />
+          <Route path="/tv/popular" element={<TV />} />
+          <Route path="/tv/airing-today" element={<AiringTodayTv />} />
+          <Route path="/tv/on-the-air" element={<OnTV />} />
+          <Route path="/tv/top-rated" element={<TopRatedTv />} />
+          <Route path="/tv/:id" element={<TvShowById />} />
+          <Route path="/person" element={<Person />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="*" />{" "}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Context>
 );
