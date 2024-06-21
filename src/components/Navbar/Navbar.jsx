@@ -64,6 +64,7 @@ function Navbar() {
   ];
 
   const { lang, setLang } = useContext(LangContext);
+  
   return (
     <div className="navbar">
       <div className="container">
