@@ -5,19 +5,26 @@ import selectedMovieId from "../../repository/selectedMovieId";
 import "./selectedMovie.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { LangContext } from "../../context/Context";
+
 function MovieById() {
   const [selectedMovie, setSelectedMovie] = useState({});
   const [loader, setLoader] = useState(true);
   const params = useParams();
   const [modal, setModal] = useState(false);
   const { lang } = useContext(LangContext);
+
   const getMovieById = async () => {
-    const response = await selectedMovieId.getMoviesById(
-      `${params.id}?language=${lang}`,
-      "movie"
-    );
-    setSelectedMovie(response);
-    setLoader(false);
+    try {
+      const response = await selectedMovieId.getMoviesById(
+        `${params.id}?language=${lang === "ru" ? "ru-RU" : "en-US"}`,
+        "movie"
+      );
+      setSelectedMovie(response);
+    } catch (error) {
+      console.error("Error fetching movie data:", error);
+    } finally {
+      setLoader(false);
+    }
   };
 
   useEffect(() => {
@@ -37,7 +44,7 @@ function MovieById() {
       </div>
     );
   }
-  console.log(selectedMovie);
+
   return (
     <div
       style={{
@@ -50,7 +57,7 @@ function MovieById() {
           <div className="modalContent">
             <img
               src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${selectedMovie.poster_path}`}
-              alt=""
+              alt={selectedMovie.title}
             />
             <div className="movieInfo">
               <span
@@ -71,7 +78,7 @@ function MovieById() {
               setModal(true);
             }}
             src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${selectedMovie.poster_path}`}
-            alt=""
+            alt={selectedMovie.title}
           />
           <div className="text">
             <h1>{selectedMovie.title}</h1>
@@ -79,11 +86,9 @@ function MovieById() {
               <CustomCircularProgress
                 value={Math.round(selectedMovie.vote_average * 10)}
               />
-              <h2>{lang === "en" ? "Overwiev" : "Обзор"}</h2>
+              <h2>{lang === "en" ? "Overview" : "Обзор"}</h2>
               <p style={{ width: "700px" }}>
-                {selectedMovie.overview === ""
-                  ? "not found"
-                  : selectedMovie.overview}
+                {selectedMovie.overview ? selectedMovie.overview : "Not found"}
               </p>
             </span>
           </div>

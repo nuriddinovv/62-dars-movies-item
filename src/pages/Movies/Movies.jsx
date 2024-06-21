@@ -14,17 +14,26 @@ function Movies() {
   const navigate = useNavigate();
   const { lang } = useContext(LangContext);
 
-  async function getPopularMovies() {
-    const resp = await movies.getMoviesByName(
-      `popular?language=${lang}-US&page=1`
-    );
-    setPopularMovies(resp.results);
-    setLoader(false);
-  }
+  const getPopularMovies = async () => {
+    try {
+      const resp = await movies.getMoviesByName(
+        `popular?language=${lang}-US&page=1`
+      );
+      setPopularMovies(resp.results);
+    } catch (error) {
+      console.error("Failed to fetch popular movies:", error);
+    } finally {
+      setLoader(false);
+    }
+  };
 
   useEffect(() => {
     getPopularMovies();
   }, [lang]);
+
+  const handleClick = (id) => {
+    navigate(`/movies/${id}`);
+  };
 
   if (loader) {
     return (
@@ -39,10 +48,6 @@ function Movies() {
       </div>
     );
   }
-
-  const handleClick = (id) => {
-    navigate(`/movies/${id}`);
-  };
 
   return (
     <div className="moviesContainer">
@@ -62,34 +67,30 @@ function Movies() {
           </button>
         </div>
         <div className="moviesCards">
-          {popularMovies?.map((item, index) => {
-            return (
-              <div
-                onClick={() => {
-                  handleClick(item.id);
-                }}
-                key={index}
-                className="card"
-              >
-                <span className="material-symbols-outlined moreIcon">
-                  more_horiz
+          {popularMovies?.map((item, index) => (
+            <div
+              onClick={() => handleClick(item.id)}
+              key={index}
+              className="card"
+            >
+              <span className="material-symbols-outlined moreIcon">
+                more_horiz
+              </span>
+              <img
+                src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
+                alt={item.title}
+              />
+              <div className="cardBody">
+                <span>
+                  <CustomCircularProgress
+                    value={Math.round(item.vote_average * 10)}
+                  />
                 </span>
-                <img
-                  src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
-                  alt=""
-                />
-                <div className="cardBody">
-                  <span>
-                    <CustomCircularProgress
-                      value={Math.round(item.vote_average * 10)}
-                    />
-                  </span>
-                  <h1>{item.title}</h1>
-                  <p>{convertDate(item.release_date)}</p>
-                </div>
+                <h1>{item.title}</h1>
+                <p>{convertDate(item.release_date)}</p>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </div>

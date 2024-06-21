@@ -38,7 +38,7 @@ root.render(
           <Route path="/tv/:id" element={<TvShowById />} />
           <Route path="/person" element={<Person />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="*" />{" "}
+          <Route path="*" />{""}
         </Route>
       </Routes>
     </BrowserRouter>
