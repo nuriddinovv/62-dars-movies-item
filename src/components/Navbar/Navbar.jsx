@@ -33,23 +33,53 @@ function Navbar() {
     { text: "People", path: "/person" },
     { text: "More", path: "/more" },
   ];
+  //    - - - - - -  - - - - RU data - - - - - - - - -
+  const navbarMenuDataRu = [
+    {
+      text: (
+        <img
+          src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+          alt=""
+        />
+      ),
+      path: "/",
+    },
+    { text: "Фильмы", path: "/movies" },
+    { text: "Сериалы", path: "/tv" },
+    { text: "Люди", path: "/person" },
+    { text: "Ещё", path: "/more" },
+  ];
+  const peopleToggleDataRu = [{ text: "Популярные люди", path: "/person" }];
+  const tvShowToggleDataRu = [
+    { text: "Популярные", path: "/tv" },
+    { text: "В эфире сегодня", path: "/tv/airing-today" },
+    { text: "В телевидению", path: "/tv/on-the-air" },
+    { text: "Лучшие ", path: "/tv/top-rated" },
+  ];
+  const moviesToggleDataRu = [
+    { text: "Популярные", path: "/movies" },
+    { text: "Смотрят сейчас", path: "/movies/now_playing" },
+    { text: "Ожидаемые", path: "/movies/upcoming" },
+    { text: "Лучшие", path: "/movies/top_rated" },
+  ];
+
   const { lang, setLang } = useContext(LangContext);
   return (
     <div className="navbar">
       <div className="container">
         <div className="navbar-wrapper">
-          <ul className="navbar-wrapper-menu">
-            {navbarMenuData.map((nav_menu, index) => (
-              <li className="navbar-wrapper-menu-item" key={index}>
-                <Link
-                  to={nav_menu.path}
-                  className="navbar-wrapper-menu-item-link"
-                >
-                  {nav_menu.text}
-                </Link>
-                {nav_menu.text === "Movies" && (
-                  <div className="moviesToggle">
-                    {lang === "en" ? (
+          {lang === "en" ? (
+            <ul className="navbar-wrapper-menu">
+              {navbarMenuData.map((nav_menu, index) => (
+                <li className="navbar-wrapper-menu-item" key={index}>
+                  <Link
+                    to={nav_menu.path}
+                    className="navbar-wrapper-menu-item-link"
+                  >
+                    {nav_menu.text}
+                  </Link>
+                  {nav_menu.path === "/movies" && (
+                    <div className="moviesToggle">
                       <ul>
                         {moviesToggleData.map((item, index) => (
                           <li key={index}>
@@ -59,38 +89,90 @@ function Navbar() {
                           </li>
                         ))}
                       </ul>
-                    ) : <ul>aa</ul>}
-                  </div>
-                )}
-                {nav_menu.text === "TV Shows" && (
-                  <div className="moviesToggle">
-                    <ul>
-                      {tvShowToggleData.map((item, index) => (
-                        <li key={index}>
-                          <Link to={item.path} className="">
-                            {item.text}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {nav_menu.text === "People" && (
-                  <div className="moviesToggle">
-                    <ul>
-                      {peopleToggleData.map((item, index) => (
-                        <li key={index}>
-                          <Link to={item.path} className="">
-                            {item.text}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+                    </div>
+                  )}
+                  {nav_menu.path === "/tv" && (
+                    <div className="moviesToggle">
+                      <ul>
+                        {tvShowToggleData.map((item, index) => (
+                          <li key={index}>
+                            <Link to={item.path} className="">
+                              {item.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {nav_menu.path === "/person" && (
+                    <div className="moviesToggle">
+                      <ul>
+                        {peopleToggleData.map((item, index) => (
+                          <li key={index}>
+                            <Link to={item.path} className="">
+                              {item.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul className="navbar-wrapper-menu">
+              {navbarMenuDataRu.map((nav_menu, index) => (
+                <li className="navbar-wrapper-menu-item" key={index}>
+                  <Link
+                    to={nav_menu.path}
+                    className="navbar-wrapper-menu-item-link"
+                  >
+                    {nav_menu.text}
+                  </Link>
+                  {nav_menu.path === "/movies" && (
+                    <div className="moviesToggle">
+                      <ul>
+                        {moviesToggleDataRu.map((item, index) => (
+                          <li key={index}>
+                            <Link to={item.path} className="">
+                              {item.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {nav_menu.path === "/tv" && (
+                    <div className="moviesToggle">
+                      <ul>
+                        {tvShowToggleDataRu.map((item, index) => (
+                          <li key={index}>
+                            <Link to={item.path} className="">
+                              {item.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {nav_menu.path === "/person" && (
+                    <div className="moviesToggle">
+                      <ul>
+                        {peopleToggleDataRu.map((item, index) => (
+                          <li key={index}>
+                            <Link to={item.path} className="">
+                              {item.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
           <div className="rightUser">
             <span className="material-symbols-outlined">add</span>
             <div
