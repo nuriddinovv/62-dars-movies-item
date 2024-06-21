@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
 import movies from "../../repository/movies";
@@ -6,15 +6,17 @@ import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
 import "./default.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
+import { LangContext } from "../../context/Context";
 
 function TopRated() {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
+  const { lang } = useContext(LangContext);
 
   async function getTopRatedMovies() {
     const resp = await movies.getMoviesByName(
-      "top_rated?language=en-US&page=1"
+      `top_rated?language=${lang}-US&page=1`
     );
     setTopRatedMovies(resp.results);
     setLoader(false);
@@ -22,7 +24,7 @@ function TopRated() {
 
   useEffect(() => {
     getTopRatedMovies();
-  }, []);
+  }, [lang]);
 
   if (loader) {
     return (
@@ -44,18 +46,20 @@ function TopRated() {
 
   return (
     <div className="moviesContainer">
-      <h2>Top Rated Movies</h2>
+      <h2>{lang === "en" ? "Top Rated Movies" : "Лучшие фильмы"}</h2>
       <div className="moviesWrapper">
         <div className="moviesFilter">
           <div className="sort">
-            <h3>Sort</h3>
+            <h3>{lang === "en" ? "Sort" : "Сортировать"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
           <div className="sort">
-            <h3>Filters</h3>
+            <h3>{lang === "en" ? "Filters" : "Фильтры"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
-          <button className="filterSearch">Search</button>
+          <button className="filterSearch">
+            {lang === "en" ? "Search" : "Поиск"}
+          </button>
         </div>
         <div className="moviesCards">
           {topRatedMovies?.map((item, index) => {
@@ -78,7 +82,7 @@ function TopRated() {
                       value={Math.round(item.vote_average * 10)}
                     />
                   </span>
-                  <h1>{item.original_title}</h1>
+                  <h1>{item.title}</h1>
                   <p>{convertDate(item.release_date)}</p>
                 </div>
               </div>

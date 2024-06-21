@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import movies from "../../repository/movies";
 import "./default.css";
 
@@ -7,15 +7,17 @@ import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
 import { useNavigate } from "react-router-dom";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
+import { LangContext } from "../../context/Context";
 
 function NowPlaying() {
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
   const [loader, setLoader] = useState(true);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { lang } = useContext(LangContext);
 
   async function getNowPlayingMovies() {
     const resp = await movies.getMoviesByName(
-      "now_playing?language=en-US&page=1"
+      `now_playing?language=${lang}-US&page=1`
     );
     setNowPlayingMovies(resp.results);
     setLoader(false);
@@ -23,7 +25,7 @@ function NowPlaying() {
 
   useEffect(() => {
     getNowPlayingMovies();
-  }, []);
+  }, [lang]);
 
   if (loader) {
     return (
@@ -40,23 +42,25 @@ function NowPlaying() {
   }
 
   const handleClick = (id) => {
-    navigate(`/movies/${id}`); 
+    navigate(`/movies/${id}`);
   };
 
   return (
     <div className="moviesContainer">
-      <h2>Now Playing Movies</h2>
+      <h2>{lang === "en" ? "Now Playing" : "Сейчас смотрят фильмы"}</h2>
       <div className="moviesWrapper">
         <div className="moviesFilter">
           <div className="sort">
-            <h3>Sort</h3>
+            <h3>{lang === "en" ? "Sort" : "Сортировать"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
           <div className="sort">
-            <h3>Filters</h3>
+            <h3>{lang === "en" ? "Filters" : "Фильтры"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
-          <button className="filterSearch">Search</button>
+          <button className="filterSearch">
+            {lang === "en" ? "Search" : "Поиск"}
+          </button>
         </div>
         <div className="moviesCards">
           {nowPlayingMovies?.map((item, index) => {
@@ -79,7 +83,7 @@ function NowPlaying() {
                       value={Math.round(item.vote_average * 10)}
                     />
                   </span>
-                  <h1>{item.original_title}</h1>
+                  <h1>{item.title}</h1>
                   <p>{convertDate(item.release_date)}</p>
                 </div>
               </div>

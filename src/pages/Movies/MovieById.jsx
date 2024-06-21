@@ -79,8 +79,12 @@ function MovieById() {
               <CustomCircularProgress
                 value={Math.round(selectedMovie.vote_average * 10)}
               />
-              <h2>Overwiev</h2>
-              <p style={{ width: "700px" }}>{selectedMovie.overview}</p>
+              <h2>{lang === "en" ? "Overwiev" : "Обзор"}</h2>
+              <p style={{ width: "700px" }}>
+                {selectedMovie.overview === ""
+                  ? "not found"
+                  : selectedMovie.overview}
+              </p>
             </span>
           </div>
         </div>

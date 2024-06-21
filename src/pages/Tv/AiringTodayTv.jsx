@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import tvShow from "../../repository/tvShow";
 import "./default.css";
 import filterChevron from "../../img/moviesFilter.svg";
@@ -6,27 +6,27 @@ import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
 import { useNavigate } from "react-router-dom";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
+import { LangContext } from "../../context/Context";
 
 function AiringTodayTv() {
   const [airingTodayTvShows, setAiringTodayTvShows] = useState([]);
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
-
+  const { lang } = useContext(LangContext);
   const handleClick = (id) => {
     navigate(`/tv/${id}`);
   };
   async function getAiringTodayTvShows() {
     const resp = await tvShow.getMoviesByName(
-      "airing_today?language=en-US&page=1"
+      `airing_today?language=${lang}-US&page=1`
     );
     setAiringTodayTvShows(resp.results);
     setLoader(false);
-    console.log(resp.results);
   }
 
   useEffect(() => {
     getAiringTodayTvShows();
-  }, []);
+  }, [lang]);
 
   if (loader) {
     return (
@@ -44,18 +44,22 @@ function AiringTodayTv() {
 
   return (
     <div className="moviesContainer">
-      <h2>Airing Today TV Shows</h2>
+      <h2>
+        {lang === "en" ? "Airing Today TV Shows" : "Сериалы в эфире сегодня"}
+      </h2>
       <div className="moviesWrapper">
         <div className="moviesFilter">
           <div className="sort">
-            <h3>Sort</h3>
+            <h3>{lang === "en" ? "Sort" : "Сортировать"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
           <div className="sort">
-            <h3>Filters</h3>
+            <h3>{lang === "en" ? "Filters" : "Фильтры"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
-          <button className="filterSearch">Search</button>
+          <button className="filterSearch">
+            {lang === "en" ? "Search" : "Поиск"}
+          </button>
         </div>
         <div className="moviesCards">
           {airingTodayTvShows?.map((item, index) => {

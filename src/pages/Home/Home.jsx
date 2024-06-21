@@ -16,7 +16,6 @@ function Home() {
     const resp = await homeTrending.getMoviesByName(
       `movie/${searchWord}?language=${lang}-US`
     );
-    console.log(resp.results);
     setTrendData(resp.results);
   }
   const navigate = useNavigate();

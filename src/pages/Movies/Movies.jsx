@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
 import filterChevron from "../../img/moviesFilter.svg";
@@ -6,21 +6,25 @@ import { convertDate } from "../../repository/dataConvert";
 import movies from "../../repository/movies";
 import "./default.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
+import { LangContext } from "../../context/Context";
 
 function Movies() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [loader, setLoader] = useState(true);
   const navigate = useNavigate();
+  const { lang } = useContext(LangContext);
 
   async function getPopularMovies() {
-    const resp = await movies.getMoviesByName("popular?language=en-US&page=1");
+    const resp = await movies.getMoviesByName(
+      `popular?language=${lang}-US&page=1`
+    );
     setPopularMovies(resp.results);
     setLoader(false);
   }
 
   useEffect(() => {
     getPopularMovies();
-  }, []);
+  }, [lang]);
 
   if (loader) {
     return (
@@ -42,18 +46,20 @@ function Movies() {
 
   return (
     <div className="moviesContainer">
-      <h2>Popular Movies</h2>
+      <h2>{lang === "en" ? "Popular Movies" : "Популярные фильмы"}</h2>
       <div className="moviesWrapper">
         <div className="moviesFilter">
           <div className="sort">
-            <h3>Sort</h3>
+            <h3>{lang === "en" ? "Sort" : "Сортировать"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
           <div className="sort">
-            <h3>Filters</h3>
+            <h3>{lang === "en" ? "Filters" : "Фильтры"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
-          <button className="filterSearch">Search</button>
+          <button className="filterSearch">
+            {lang === "en" ? "Search" : "Поиск"}
+          </button>
         </div>
         <div className="moviesCards">
           {popularMovies?.map((item, index) => {
@@ -73,12 +79,12 @@ function Movies() {
                   alt=""
                 />
                 <div className="cardBody">
-                  <span >
+                  <span>
                     <CustomCircularProgress
                       value={Math.round(item.vote_average * 10)}
                     />
                   </span>
-                  <h1>{item.original_title}</h1>
+                  <h1>{item.title}</h1>
                   <p>{convertDate(item.release_date)}</p>
                 </div>
               </div>

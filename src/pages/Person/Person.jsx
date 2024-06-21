@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./person.css";
 import { SpinnerCircular } from "spinners-react";
 import person from "../../repository/person";
 import { useState, useEffect } from "react";
+import { LangContext } from "../../context/Context";
 
 function Person() {
   const [personMovies, setpersonMovies] = useState([]);
   const [loader, setLoader] = useState(true);
+  const { lang } = useContext(LangContext);
   async function getpersonMovies() {
-    const resp = await person.getMoviesByName("popular?language=en-US&page=1");
+    const resp = await person.getMoviesByName(`popular?language=${lang}-US&page=1`);
     setpersonMovies(resp.results);
     setLoader(false);
   }
@@ -32,7 +34,7 @@ function Person() {
   }
   return (
     <div className="personContainer">
-      <h2>Popular Peoples</h2>
+      <h2>{lang === "en" ? "Popular Peoples" : "Популярные люди"}</h2>
       <div className="cardWrapper">
         {personMovies.map((item, index) => {
           return (

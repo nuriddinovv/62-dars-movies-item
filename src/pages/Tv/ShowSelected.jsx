@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
 import selectedMovieId from "../../repository/selectedMovieId";
 import "./selectedMovie.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
+import { LangContext } from "../../context/Context";
 function MovieById() {
   const [selectedMovie, setSelectedMovie] = useState({});
   const [loader, setLoader] = useState(true);
   const params = useParams();
-
+  const { lang } = useContext(LangContext);
   const getMovieById = async () => {
     const response = await selectedMovieId.getMoviesById(
-      `${params.id}?language=en-US`,
+      `${params.id}?language=${lang}-US`,
       "tv"
     );
     setSelectedMovie(response);
     setLoader(false);
+    console.log(response);
   };
 
   useEffect(() => {
     getMovieById();
-  }, [params.id]);
+  }, [params.id, lang]);
 
   if (loader) {
     return (
@@ -50,13 +52,17 @@ function MovieById() {
             alt=""
           />
           <div className="text">
-            <h1>{selectedMovie.title}</h1>
+            <h1>{selectedMovie.original_name}</h1>
             <span>
               <CustomCircularProgress
                 value={Math.round(selectedMovie.vote_average * 10)}
               />
-              <h2>Overwiev</h2>
-              <p style={{width:'700px'}}>{selectedMovie.overview}</p>
+              <h2>{lang === "en" ? "Overwiev" : "Обзор"}</h2>
+              <p style={{ width: "700px" }}>
+                {selectedMovie.overview === ""
+                  ? "not found"
+                  : selectedMovie.overview}
+              </p>
             </span>
           </div>
         </div>

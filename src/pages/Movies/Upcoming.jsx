@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
 import movies from "../../repository/movies";
@@ -6,21 +6,24 @@ import filterChevron from "../../img/moviesFilter.svg";
 import { convertDate } from "../../repository/dataConvert";
 import "./default.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
+import { LangContext } from "../../context/Context";
 
 function Upcoming() {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [loader, setLoader] = useState(true);
-  const navigate = useNavigate(); // useNavigate hookini qo'shamiz
-
+  const navigate = useNavigate(); 
+  const { lang } = useContext(LangContext);
   async function getUpcomingMovies() {
-    const resp = await movies.getMoviesByName("upcoming?language=en-US&page=1");
+    const resp = await movies.getMoviesByName(
+      `upcoming?language=${lang}-US&page=1`
+    );
     setUpcomingMovies(resp.results);
     setLoader(false);
   }
 
   useEffect(() => {
     getUpcomingMovies();
-  }, []);
+  }, [lang]);
 
   if (loader) {
     return (
@@ -37,23 +40,25 @@ function Upcoming() {
   }
 
   const handleClick = (id) => {
-    navigate(`/movies/${id}`); // navigate orqali boshqa sahifaga o'tamiz
+    navigate(`/movies/${id}`); 
   };
 
   return (
     <div className="moviesContainer">
-      <h2>Upcoming Movies</h2>
+      <h2>{lang === "en" ? "Upcoming Movies" : "Ожидаемые фильмы"}</h2>
       <div className="moviesWrapper">
         <div className="moviesFilter">
           <div className="sort">
-            <h3>Sort</h3>
+            <h3>{lang === "en" ? "Sort" : "Сортировать"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
           <div className="sort">
-            <h3>Filters</h3>
+            <h3>{lang === "en" ? "Filters" : "Фильтры"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
-          <button className="filterSearch">Search</button>
+          <button className="filterSearch">
+            {lang === "en" ? "Search" : "Поиск"}
+          </button>
         </div>
         <div className="moviesCards">
           {upcomingMovies?.map((item, index) => {
@@ -78,7 +83,7 @@ function Upcoming() {
                       value={Math.round(item.vote_average * 10)}
                     />
                   </span>
-                  <h1>{item.original_title}</h1>
+                  <h1>{item.title}</h1>
                   <p>{convertDate(item.release_date)}</p>
                 </div>
               </div>

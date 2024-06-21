@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import tvShow from "../../repository/tvShow";
 import "./default.css";
 import filterChevron from "../../img/moviesFilter.svg";
@@ -6,14 +6,15 @@ import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { useNavigate } from "react-router-dom";
+import { LangContext } from "../../context/Context";
 
 function TopRatedTv() {
   const [topRatedTvShows, setTopRatedTvShows] = useState([]);
   const [loader, setLoader] = useState(true);
-
+  const { lang } = useContext(LangContext);
   async function getTopRatedTvShows() {
     const resp = await tvShow.getMoviesByName(
-      "top_rated?language=en-US&page=1"
+      `top_rated?language=${lang}-US&page=1`
     );
     setTopRatedTvShows(resp.results);
     setLoader(false);
@@ -25,7 +26,7 @@ function TopRatedTv() {
 
   useEffect(() => {
     getTopRatedTvShows();
-  }, []);
+  }, [lang]);
 
   if (loader) {
     return (
@@ -42,23 +43,31 @@ function TopRatedTv() {
   }
   return (
     <div className="moviesContainer">
-      <h2>Top Rated TV Shows</h2>
+      <h2>{lang === "en" ? "Top Rated TV" : "Лучшие сериалы"}</h2>
       <div className="moviesWrapper">
         <div className="moviesFilter">
           <div className="sort">
-            <h3>Sort</h3>
+            <h3>{lang === "en" ? "Sort" : "Сортировать"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
           <div className="sort">
-            <h3>Filters</h3>
+            <h3>{lang === "en" ? "Filters" : "Фильтры"}</h3>
             <img src={filterChevron} alt="filter chevron" />
           </div>
-          <button className="filterSearch">Search</button>
+          <button className="filterSearch">
+            {lang === "en" ? "Search" : "Поиск"}
+          </button>
         </div>
         <div className="moviesCards">
           {topRatedTvShows?.map((item, index) => {
             return (
-              <div onClick={()=> {handleClick(item.id)}} key={index} className="card">
+              <div
+                onClick={() => {
+                  handleClick(item.id);
+                }}
+                key={index}
+                className="card"
+              >
                 <span className="material-symbols-outlined moreIcon">
                   more_horiz
                 </span>
