@@ -28,16 +28,15 @@ root.render(
         <Route path="/movies/upcoming" element={<Upcoming />} />
         <Route path="/movies/top_rated" element={<TopRated />} />
         <Route path="/movies/:id" element={<MovieById />} />
-
         <Route path="/tv" element={<TV />} />
         <Route path="/tv/popular" element={<TV />} />
         <Route path="/tv/airing-today" element={<AiringTodayTv />} />
         <Route path="/tv/on-the-air" element={<OnTV />} />
         <Route path="/tv/top-rated" element={<TopRatedTv />} />
         <Route path="/tv/:id" element={<TvShowById />} />
-
         <Route path="/person" element={<Person />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="*" />{" "}
       </Route>
     </Routes>
   </BrowserRouter>

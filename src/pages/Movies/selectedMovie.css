@@ -20,6 +20,9 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
+.selectedMovieContainer .content span:nth-child(1) {
+  margin-left: 18px;
+}
 
 .selectedMovieContainer .content img {
   width: 300px;

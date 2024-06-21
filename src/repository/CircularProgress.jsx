@@ -29,5 +29,5 @@ export function CustomCircularProgress(props) {
 }
 
 CustomCircularProgress.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number
 };

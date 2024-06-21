@@ -4,10 +4,12 @@ import { SpinnerCircular } from "spinners-react";
 import selectedMovieId from "../../repository/selectedMovieId";
 import "./selectedMovie.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
+import { Modal } from "@mui/material";
 function MovieById() {
   const [selectedMovie, setSelectedMovie] = useState({});
   const [loader, setLoader] = useState(true);
   const params = useParams();
+  const [modal, setModal] = useState(false);
 
   const getMovieById = async () => {
     const response = await selectedMovieId.getMoviesById(
@@ -43,9 +45,32 @@ function MovieById() {
       }}
       className="selectedMovie"
     >
+      {modal && (
+        <div className="modal">
+          <div className="modalContent">
+            <img
+              src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${selectedMovie.poster_path}`}
+              alt=""
+            />
+            <div className="movieInfo">
+              <span
+                onClick={() => {
+                  setModal(false);
+                }}
+              >
+                ❌
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="selectedMovieContainer">
         <div className="content">
           <img
+            onClick={() => {
+              setModal(true);
+            }}
+            
             src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${selectedMovie.poster_path}`}
             alt=""
           />
