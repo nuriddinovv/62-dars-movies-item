@@ -17,14 +17,76 @@
   gap: 50px;
   padding: 30px 40px;
   background-color: rgba(0, 0, 0, 0.8);
-  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
-.selectedMovieContainer .content span:nth-child(1) {
+
+.selectedMovieContainer .content span:first-child {
   margin-left: 18px;
 }
 
 .selectedMovieContainer .content img {
   width: 300px;
   border-radius: 8px;
+}
+
+.text .rate {
+  display: flex;
+  gap: 16px;
+}
+
+.text .rate .smile {
+  display: flex;
+}
+
+.text .rate .smile img {
+  width: 28px;
+  position: relative;
+}
+
+.text .rate .smile img:first-child {
+  z-index: 1;
+  left: 0;
+}
+
+.text .rate .smile img:first-child:hover {
+  z-index: 4;
+  transform: scale(1.1);
+  transition: 0.2s ease-in-out;
+}
+
+.text .rate .smile img:nth-child(2) {
+  left: -5px;
+  z-index: 2;
+}
+
+.text .rate .smile img:nth-child(2):hover {
+  z-index: 5;
+  transform: scale(1.1);
+  transition: 0.2s ease-in-out;
+}
+
+.text .rate .smile img:nth-child(3) {
+  left: -10px;
+  z-index: 3;
+}
+
+.text .rate .smile img:nth-child(3):hover {
+  transform: scale(1.1);
+  transition: 0.2s ease-in-out;
+}
+.text .rate .vibe {
+  padding: 8px;
+  background-color: rgb(3, 37, 65);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text .rate .vibe button{
+  border: none;
+  background-color: inherit;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
 }
