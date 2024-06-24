@@ -6,7 +6,7 @@ import homeTrending from "../../repository/homeTrending";
 import "./home.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { LangContext } from "../../context/Context";
-
+import { Progress } from "antd";
 function Home() {
   const [trendData, setTrendData] = useState([]);
   const searchRef = useRef();
@@ -104,6 +104,278 @@ function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+      <div className="leaderboard">
+        <div className="leaderboardText">
+          <h2>{lang === "en" ? "Leaderboard" : "Доска почёта"}</h2>
+          <div className="allEdits">
+            <p>
+              <span
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  background:
+                    "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)",
+                  display: "inline-block",
+                  borderRadius: "50%",
+                }}
+              ></span>{" "}
+              {lang === "en" ? "All Time Edits" : "Правки за всё время"}
+            </p>
+            <p>
+              <span
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  background:
+                    "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)",
+                  display: "inline-block",
+                  borderRadius: "50%",
+                }}
+              ></span>{" "}
+              {lang === "en" ? "Edits This Week" : "Правки за неделю"}
+            </p>
+          </div>
+        </div>
+
+        <div className="leaderboardWrapper">
+          <div className="left">
+            <div className="leftProgress">
+              <img
+                style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+              />
+              <div className="leaderboardProgress">
+                <h3>enterpr1se</h3>
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                  }
+                  percent={10}
+                  showInfo={false}
+                />
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                  }
+                  percent={100}
+                  showInfo={false}
+                />
+              </div>
+            </div>
+            <div className="leftProgress">
+              <img
+                style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+              />
+              <div className="leaderboardProgress">
+                <h3>enterpr1se</h3>
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                  }
+                  percent={50}
+                  showInfo={false}
+                />
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                  }
+                  percent={50}
+                  showInfo={false}
+                />
+              </div>
+            </div>
+            <div className="leftProgress">
+              <img
+                style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+              />
+              <div className="leaderboardProgress">
+                <h3>enterpr1se</h3>
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                  }
+                  percent={80}
+                  showInfo={false}
+                />
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                  }
+                  percent={50}
+                  showInfo={false}
+                />
+              </div>
+            </div>
+            <div className="leftProgress">
+              <img
+                style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+              />
+              <div className="leaderboardProgress">
+                <h3>enterpr1se</h3>
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                  }
+                  percent={90}
+                  showInfo={false}
+                />
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                  }
+                  percent={1}
+                  showInfo={false}
+                />
+              </div>
+            </div>
+            <div className="leftProgress">
+              <img
+                style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+              />
+              <div className="leaderboardProgress">
+                <h3>enterpr1se</h3>
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                  }
+                  percent={60}
+                  showInfo={false}
+                />
+                <Progress
+                  strokeColor={
+                    "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                  }
+                  percent={80}
+                  showInfo={false}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="right">
+            <div className="left">
+              <div className="leftProgress">
+                <img
+                  style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                  src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+                />
+                <div className="leaderboardProgress">
+                  <h3>enterpr1se</h3>
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                    }
+                    percent={10}
+                    showInfo={false}
+                  />
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                    }
+                    percent={10}
+                    showInfo={false}
+                  />
+                </div>
+              </div>
+              <div className="leftProgress">
+                <img
+                  style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                  src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+                />
+                <div className="leaderboardProgress">
+                  <h3>enterpr1se</h3>
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                    }
+                    percent={75}
+                    showInfo={false}
+                  />
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                    }
+                    percent={25}
+                    showInfo={false}
+                  />
+                </div>
+              </div>
+              <div className="leftProgress">
+                <img
+                  style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                  src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+                />
+                <div className="leaderboardProgress">
+                  <h3>enterpr1se</h3>
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                    }
+                    percent={70}
+                    showInfo={false}
+                  />
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                    }
+                    percent={50}
+                    showInfo={false}
+                  />
+                </div>
+              </div>
+              <div className="leftProgress">
+                <img
+                  style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                  src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+                />
+                <div className="leaderboardProgress">
+                  <h3>enterpr1se</h3>
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                    }
+                    percent={25}
+                    showInfo={false}
+                  />
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                    }
+                    percent={60}
+                    showInfo={false}
+                  />
+                </div>
+              </div>
+              <div className="leftProgress">
+                <img
+                  style={{ width: "56px", height: "56px", borderRadius: "50%" }}
+                  src="https://secure.gravatar.com/avatar/8f6f31bbc98ea54ac6d193f257020a1e.jpg?s=150"
+                />
+                <div className="leaderboardProgress">
+                  <h3>enterpr1se</h3>
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right, rgb(192, 254, 207) 0%, rgb(30, 213, 169) 100%)"
+                    }
+                    percent={90}
+                    showInfo={false}
+                  />
+                  <Progress
+                    strokeColor={
+                      "linear-gradient(to right,rgba(253, 193, 112,1) 0%,rgba(217, 59, 99,1) 100%)"
+                    }
+                    percent={10}
+                    showInfo={false}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
