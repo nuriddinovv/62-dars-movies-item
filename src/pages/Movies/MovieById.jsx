@@ -5,6 +5,10 @@ import selectedMovieId from "../../repository/selectedMovieId";
 import "./selectedMovie.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { LangContext } from "../../context/Context";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 function MovieById() {
   const [selectedMovie, setSelectedMovie] = useState({});
@@ -12,6 +16,7 @@ function MovieById() {
   const params = useParams();
   const [modal, setModal] = useState(false);
   const { lang } = useContext(LangContext);
+  const [isFavorite, setIsFavorite] = useState(false); // State to track favorite icon click
 
   const getMovieById = async () => {
     try {
@@ -24,9 +29,6 @@ function MovieById() {
       console.error("Error fetching movie data:", error);
     } finally {
       setLoader(false);
-      if (selectedMovie) {
-        console.log(selectedMovie);
-      }
     }
   };
 
@@ -90,15 +92,36 @@ function MovieById() {
                 ({new Date(selectedMovie.release_date).getFullYear()})
               </span>
             </h1>
+            <div className="genres" style={{ margin: "0 0 10px 0" }}>
+              <span>
+                {" / "}
+                {selectedMovie.release_date}
+                {" / "}
+              </span>
+              {selectedMovie.genres &&
+                selectedMovie.genres.map((item) => (
+                  <span
+                    style={{ fontSize: "16px", fontWeight: "300" }}
+                    key={item.id}
+                  >
+                    {item.name}{" "}
+                  </span>
+                ))}
+            </div>
             <div className="rate">
-              <span style={{ display: "flex", gap: "10px", justifyContent: 'center', alignItems:'center'}}>
+              <span
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <CustomCircularProgress
                   value={Math.round(selectedMovie.vote_average * 10)}
                 />
 
-                {lang === "en"
-                  ? `Score`
-                  : "Рейтинг"}
+                {lang === "en" ? `Score` : "Рейтинг"}
               </span>
               <div className="smile">
                 <img
@@ -118,6 +141,26 @@ function MovieById() {
                 <button>What's your Vibe ?</button>
               </div>
             </div>
+            <div className="actions">
+              <span>
+                <FormatListBulletedIcon fontSize="small" />
+              </span>
+              <span>
+                <BookmarkIcon fontSize="small" />
+              </span>
+              <span>
+                <FavoriteIcon
+                  fontSize="small"
+                  onClick={() => setIsFavorite(!isFavorite)}
+                  style={{ color: isFavorite ? "red" : "inherit" }} // Change color when clicked
+                />
+              </span>
+              <button>
+                <PlayArrowIcon />
+                {lang === "en" ? "Play trailer" : "Воспроизвести трейлер"}{" "}
+              </button>
+            </div>
+            <i style={{ opacity: "0.8" }}>{selectedMovie.tagline}</i>
             <div className="desc">
               <h2>{lang === "en" ? "Overview" : "Обзор"}</h2>
               <p style={{ width: "700px" }}>

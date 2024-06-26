@@ -11,6 +11,7 @@ import { LangContext } from "../../context/Context";
 function Movies() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [fModal, setFModal] = useState(true);
   const navigate = useNavigate();
   const { lang } = useContext(LangContext);
 
@@ -73,9 +74,15 @@ function Movies() {
               key={index}
               className="card"
             >
-              <span className="material-symbols-outlined moreIcon">
+              <span
+                onClick={() => {
+                  setFModal(true);
+                }}
+                className="material-symbols-outlined moreIcon"
+              >
                 more_horiz
               </span>
+              {fModal && <div>lasdadasfa</div>}
               <img
                 src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
                 alt={item.title}

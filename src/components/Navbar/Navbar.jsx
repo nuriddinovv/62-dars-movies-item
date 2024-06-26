@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./navbar.css";
 import { LangContext } from "../../context/Context";
 
@@ -128,7 +128,9 @@ function Navbar() {
             >
               {lang === "ru" ? "EN" : "RU"}
             </div>
-            <span className="material-symbols-outlined">notifications</span>
+            <NavLink to={'/favorite'}>
+              <span className="material-symbols-outlined">favorite</span>
+            </NavLink>
             <span className="profile">N</span>
             <span
               className="material-symbols-outlined"
