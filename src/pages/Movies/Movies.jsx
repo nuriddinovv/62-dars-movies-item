@@ -7,14 +7,14 @@ import movies from "../../repository/movies";
 import "./default.css";
 import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { LangContext } from "../../context/Context";
-
+import { addFavorite } from "../../app/slice/FavoriteSlice";
+import { useDispatch } from "react-redux";
 function Movies() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [loader, setLoader] = useState(true);
-  const [fModal, setFModal] = useState(true);
   const navigate = useNavigate();
   const { lang } = useContext(LangContext);
-
+  const dispatch = useDispatch();
   const getPopularMovies = async () => {
     try {
       const resp = await movies.getMoviesByName(
@@ -69,21 +69,18 @@ function Movies() {
         </div>
         <div className="moviesCards">
           {popularMovies?.map((item, index) => (
-            <div
-              onClick={() => handleClick(item.id)}
-              key={index}
-              className="card"
-            >
-              <span
+            <div key={index} className="card">
+              <div
                 onClick={() => {
-                  setFModal(true);
+                  dispatch(addFavorite(item));
                 }}
                 className="material-symbols-outlined moreIcon"
               >
-                more_horiz
-              </span>
-              {fModal && <div>lasdadasfa</div>}
+                favorite
+              </div>
+
               <img
+                onClick={() => handleClick(item.id)}
                 src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
                 alt={item.title}
               />
