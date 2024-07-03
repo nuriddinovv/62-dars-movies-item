@@ -1,7 +1,6 @@
 .sectOne {
-  width: 1300px;
+  width: 80%;
   margin: 0 auto;
-  /* height: 50vh; */
   background-image: linear-gradient(
     to bottom right,
     #221d93 0%,
@@ -76,7 +75,7 @@
   border-radius: 30px;
 }
 .trendingMovies {
-  width: 1250px;
+  width: 80%;
   margin: 0 auto;
 }
 .trendingMoviesToggle {
@@ -89,7 +88,6 @@
   display: flex;
   gap: 10px;
   overflow-x: scroll;
-
 }
 .homeCardWrapper::-webkit-scrollbar {
   width: 10px;
@@ -107,7 +105,7 @@
   width: 8px;
 }
 .leaderboard {
-  width: 1250px;
+  width: 80%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -117,17 +115,15 @@
   gap: 16px;
 }
 
-
 .left .leftProgress {
   display: flex;
   align-items: center;
   gap: 10px;
   width: 100%;
 }
-.leftProgress .leaderboardProgress{
+.leftProgress .leaderboardProgress {
   width: 100%;
 }
-
 
 .leaderboard .leaderboardText {
   display: flex;
@@ -136,4 +132,15 @@
   width: 100%;
 
   margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  .sectOne {
+    width: 100%;
+  }
+  .leaderboard {
+    width: 100%;
+  }
+  .leaderboardWrapper {
+    grid-template-columns: 1fr;
+  }
 }

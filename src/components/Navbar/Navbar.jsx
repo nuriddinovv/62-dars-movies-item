@@ -36,7 +36,6 @@ function Navbar() {
     { text: "More", path: "/more" },
   ];
 
-  // Russian translation data
   const navbarMenuDataRu = [
     {
       text: (
@@ -90,15 +89,15 @@ function Navbar() {
       <div className="container">
         <div className="navbar-wrapper">
           <div
-            className="nav_toggle "
+            className="nav_toggle"
             style={{ color: "white" }}
             onClick={() => {
               setMenuOpen(!menuOpen);
             }}
           >
-            {!menuOpen ? "✖" : "☰"}
+            {menuOpen ? "✖" : "☰"}
           </div>
-          <ul className="navbar-wrapper-menu">
+          <ul className={`navbar-wrapper-menu ${menuOpen ? "open" : ""}`}>
             {(lang === "en" ? navbarMenuData : navbarMenuDataRu).map(
               (nav_menu, index) => (
                 <li className="navbar-wrapper-menu-item" key={index}>

@@ -15,6 +15,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
+  transition: 0.3s;
 }
 
 .navbar-wrapper-menu {
@@ -71,6 +72,9 @@ body {
   padding: 3px 5px;
   width: 150px;
 }
+.navbar-wrapper .nav_toggle {
+  display: none;
+}
 
 .navbar-wrapper-menu-item:hover .moviesToggle {
   display: block;
@@ -98,38 +102,49 @@ body {
   }
 }
 
-@media (max-width: 1023px) {
-  .navbar-wrapper {
-    padding: 0 30px;
-  }
-
-  .navbar-wrapper-menu {
-    gap: 10px;
-  }
-
-  .rightUser {
-    gap: 20px;
-  }
-}
-
 @media (max-width: 1200px) {
   .navbar-wrapper {
     padding: 0 40px;
   }
-
+  .navbar-wrapper .nav_toggle {
+    display: block;
+  }
   .navbar-wrapper-menu {
     gap: 14px;
-    display: block;
     position: absolute;
     top: 64px;
     left: 0;
     padding: 10px;
     height: calc(100vh - 64px);
     z-index: 5;
+    transition: 0.3s;
     background-color: #042541;
+    transform: translateX(-100%);
+    display: block;
   }
-
+  .navbar-wrapper-menu.open {
+    transform: translateX(0);
+  }
   .rightUser {
     gap: 30px;
+  }
+}
+@media (max-width: 768px) {
+  .navbar-wrapper {
+    padding: 0 40px;
+  }
+
+  .navbar-wrapper-menu {
+    gap: 14px;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    padding: 10px;
+    height: calc(100vh - 64px);
+    z-index: 5;
+    transition: 0.3s;
+    background-color: #042541;
+    transform: translateX(-100%);
+    display: block;
   }
 }
