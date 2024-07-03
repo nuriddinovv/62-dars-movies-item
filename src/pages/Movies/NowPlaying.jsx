@@ -1,18 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import movies from "../../repository/movies";
 import "./default.css";
-
 import filterChevron from "../../img/moviesFilter.svg";
-import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
-import { useNavigate } from "react-router-dom";
-import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { LangContext } from "../../context/Context";
-
+import CardComponent from "../../components/Card/CardComponent";
 function NowPlaying() {
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
   const [loader, setLoader] = useState(true);
-  const navigate = useNavigate();
   const { lang } = useContext(LangContext);
 
   async function getNowPlayingMovies() {
@@ -41,10 +36,6 @@ function NowPlaying() {
     );
   }
 
-  const handleClick = (id) => {
-    navigate(`/movies/${id}`);
-  };
-
   return (
     <div className="moviesContainer">
       <h2>{lang === "en" ? "Now Playing" : "Сейчас смотрят фильмы"}</h2>
@@ -65,28 +56,16 @@ function NowPlaying() {
         <div className="moviesCards">
           {nowPlayingMovies?.map((item, index) => {
             return (
-              <div
-                onClick={() => handleClick(item.id)}
+              <CardComponent
                 key={index}
-                className="card"
-              >
-                <span className="material-symbols-outlined moreIcon">
-                  more_horiz
-                </span>
-                <img
-                  src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
-                  alt=""
-                />
-                <div className="cardBody">
-                  <span>
-                    <CustomCircularProgress
-                      value={Math.round(item.vote_average * 10)}
-                    />
-                  </span>
-                  <h1>{item.title}</h1>
-                  <p>{convertDate(item.release_date)}</p>
-                </div>
-              </div>
+                item={item}
+                id={item.id}
+                image={item.poster_path}
+                title={item.title}
+                rating={item.vote_average}
+                date={item.release_date}
+                toid={"movies"}
+              />
             );
           })}
         </div>

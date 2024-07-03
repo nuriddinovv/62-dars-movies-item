@@ -1,22 +1,25 @@
 import React from "react";
 import "./footer.css";
 import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="footerUser">
         <img
           src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
-          alt=""
+          alt="TMDB Logo"
         />
         <Link to="/">Hi nuriddinovv!</Link>
       </div>
       <table>
         <thead>
-          <th>THE BASICS</th>
-          <th>GET INVOLVED</th>
-          <th>COMMUNITY</th>
-          <th>LEGAL</th>
+          <tr>
+            <th>THE BASICS</th>
+            <th>GET INVOLVED</th>
+            <th>COMMUNITY</th>
+            <th>LEGAL</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
@@ -48,6 +51,6 @@ export default function Footer() {
           </tr>
         </tbody>
       </table>
-    </div>
+    </footer>
   );
 }

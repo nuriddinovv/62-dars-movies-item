@@ -21,7 +21,6 @@ body {
   display: flex;
   gap: 14px;
   cursor: pointer;
-
   color: white;
 }
 
@@ -75,4 +74,62 @@ body {
 
 .navbar-wrapper-menu-item:hover .moviesToggle {
   display: block;
+}
+@media (max-width: 767px) {
+  .navbar-wrapper {
+    padding: 0 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-wrapper-menu {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar-wrapper-menu-item {
+    padding: 6px;
+  }
+
+  .rightUser {
+    gap: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 1023px) {
+  .navbar-wrapper {
+    padding: 0 30px;
+  }
+
+  .navbar-wrapper-menu {
+    gap: 10px;
+  }
+
+  .rightUser {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .navbar-wrapper {
+    padding: 0 40px;
+  }
+
+  .navbar-wrapper-menu {
+    gap: 14px;
+    display: block;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    padding: 10px;
+    height: calc(100vh - 64px);
+    z-index: 5;
+    background-color: #042541;
+  }
+
+  .rightUser {
+    gap: 30px;
+  }
 }

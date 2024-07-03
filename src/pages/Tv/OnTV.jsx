@@ -2,11 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import tvShow from "../../repository/tvShow";
 import "./default.css";
 import filterChevron from "../../img/moviesFilter.svg";
-import { convertDate } from "../../repository/dataConvert";
 import { SpinnerCircular } from "spinners-react";
-import { CustomCircularProgress } from "../../repository/CircularProgress";
-import { useNavigate } from "react-router-dom";
 import { LangContext } from "../../context/Context";
+import CardComponent from "../../components/Card/CardComponent";
 
 function OnTV() {
   const [onTvShows, setOnTvShows] = useState([]);
@@ -23,10 +21,6 @@ function OnTV() {
   useEffect(() => {
     getOnTvShows();
   }, [lang]);
-  const navigate = useNavigate();
-  const handleClick = (id) => {
-    navigate(`/tv/${id}`);
-  };
 
   if (loader) {
     return (
@@ -61,30 +55,16 @@ function OnTV() {
         <div className="moviesCards">
           {onTvShows?.map((item, index) => {
             return (
-              <div
-                onClick={() => {
-                  handleClick(item.id);
-                }}
+              <CardComponent
                 key={index}
-                className="card"
-              >
-                <span className="material-symbols-outlined moreIcon">
-                  more_horiz
-                </span>
-                <img
-                  src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
-                  alt=""
-                />
-                <div className="cardBody">
-                  <span>
-                    <CustomCircularProgress
-                      value={Math.round(item.vote_average * 10)}
-                    />
-                  </span>
-                  <h1>{item.name}</h1>
-                  <p>{convertDate(item.first_air_date)}</p>
-                </div>
-              </div>
+                item={item}
+                id={item.id}
+                image={item.poster_path}
+                title={item.name}
+                rating={item.vote_average}
+                date={item.first_air_date}
+                toid={"tv"}
+              />
             );
           })}
         </div>

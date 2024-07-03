@@ -4,14 +4,15 @@ import Oscar from "../../img/homeOscars.svg";
 import ToggleButton from "../../repository/btn/toggleBtn";
 import homeTrending from "../../repository/homeTrending";
 import "./home.css";
-import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { LangContext } from "../../context/Context";
 import { Progress } from "antd";
+import CardComponent from "../../components/Card/CardComponent";
+
 function Home() {
   const [trendData, setTrendData] = useState([]);
   const searchRef = useRef();
-  const navigate = useNavigate();
   const { lang } = useContext(LangContext);
+  const navigate = useNavigate();
 
   async function getPopularMovies(searchWord = "day") {
     try {
@@ -37,10 +38,6 @@ function Home() {
 
   const handleToggle = (value) => {
     getPopularMovies(value === "today" ? "day" : "week");
-  };
-
-  const handleClick = (id) => {
-    navigate(`/movies/${id}`);
   };
 
   return (
@@ -83,26 +80,27 @@ function Home() {
           <ToggleButton onToggle={handleToggle} />
         </div>
 
-        <div className="homeCardWrapper">
+        <div
+          style={{
+            background:
+              "url(https://www.themoviedb.org/assets/2/v4/misc/trending-bg-39afc2a5f77e31d469b25c187814c0a2efef225494c038098d62317d923f8415.svg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            padding: "20px 0",
+          }}
+          className="homeCardWrapper"
+        >
           {trendData.map((item, index) => (
-            <div
-              onClick={() => handleClick(item.id)}
-              className="card"
+            <CardComponent 
               key={index}
-            >
-              <img
-                src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
-                alt={item.title}
-              />
-              <div className="cardBody">
-                <span>
-                  <CustomCircularProgress
-                    value={Math.round(item.vote_average * 10)}
-                  />
-                </span>
-                <h1>{item.title}</h1>
-              </div>
-            </div>
+              item={item}
+              id={item.id}
+              image={item.poster_path}
+              title={item.title}
+              rating={item.vote_average}
+              date={item.release_date}
+            />
           ))}
         </div>
       </div>

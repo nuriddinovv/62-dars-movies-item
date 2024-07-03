@@ -3,15 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
 import movies from "../../repository/movies";
 import filterChevron from "../../img/moviesFilter.svg";
-import { convertDate } from "../../repository/dataConvert";
 import "./default.css";
-import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { LangContext } from "../../context/Context";
+import CardComponent from "../../components/Card/CardComponent";
 
 function Upcoming() {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [loader, setLoader] = useState(true);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { lang } = useContext(LangContext);
   async function getUpcomingMovies() {
     const resp = await movies.getMoviesByName(
@@ -39,10 +38,6 @@ function Upcoming() {
     );
   }
 
-  const handleClick = (id) => {
-    navigate(`/movies/${id}`); 
-  };
-
   return (
     <div className="moviesContainer">
       <h2>{lang === "en" ? "Upcoming Movies" : "Ожидаемые фильмы"}</h2>
@@ -63,30 +58,16 @@ function Upcoming() {
         <div className="moviesCards">
           {upcomingMovies?.map((item, index) => {
             return (
-              <div
-                onClick={() => {
-                  handleClick(item.id);
-                }}
+              <CardComponent
                 key={index}
-                className="card"
-              >
-                <span className="material-symbols-outlined moreIcon">
-                  more_horiz
-                </span>
-                <img
-                  src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
-                  alt=""
-                />
-                <div className="cardBody">
-                  <span>
-                    <CustomCircularProgress
-                      value={Math.round(item.vote_average * 10)}
-                    />
-                  </span>
-                  <h1>{item.title}</h1>
-                  <p>{convertDate(item.release_date)}</p>
-                </div>
-              </div>
+                item={item}
+                id={item.id}
+                image={item.poster_path}
+                title={item.title}
+                rating={item.vote_average}
+                date={item.release_date}
+                toid={"movies"}
+              />
             );
           })}
         </div>

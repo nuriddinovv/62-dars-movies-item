@@ -22,7 +22,6 @@ function MovieById() {
     );
     setSelectedMovie(response);
     setLoader(false);
-    console.log(response);
   };
 
   useEffect(() => {

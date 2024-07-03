@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./navbar.css";
 import { LangContext } from "../../context/Context";
@@ -84,11 +84,20 @@ function Navbar() {
       </ul>
     </div>
   );
-
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="navbar">
       <div className="container">
         <div className="navbar-wrapper">
+          <div
+            className="nav_toggle "
+            style={{ color: "white" }}
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+            }}
+          >
+            {!menuOpen ? "✖" : "☰"}
+          </div>
           <ul className="navbar-wrapper-menu">
             {(lang === "en" ? navbarMenuData : navbarMenuDataRu).map(
               (nav_menu, index) => (
@@ -128,7 +137,7 @@ function Navbar() {
             >
               {lang === "ru" ? "EN" : "RU"}
             </div>
-            <NavLink to={'/favorite'}>
+            <NavLink to={"/favorite"}>
               <span className="material-symbols-outlined">favorite</span>
             </NavLink>
             <span className="profile">N</span>

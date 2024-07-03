@@ -2,19 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
 import filterChevron from "../../img/moviesFilter.svg";
-import { convertDate } from "../../repository/dataConvert";
 import movies from "../../repository/movies";
 import "./default.css";
-import { CustomCircularProgress } from "../../repository/CircularProgress";
 import { LangContext } from "../../context/Context";
-import { addFavorite } from "../../app/slice/FavoriteSlice";
-import { useDispatch } from "react-redux";
+import CardComponent from "../../components/Card/CardComponent";
+
 function Movies() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [loader, setLoader] = useState(true);
-  const navigate = useNavigate();
   const { lang } = useContext(LangContext);
-  const dispatch = useDispatch();
+
   const getPopularMovies = async () => {
     try {
       const resp = await movies.getMoviesByName(
@@ -31,10 +28,6 @@ function Movies() {
   useEffect(() => {
     getPopularMovies();
   }, [lang]);
-
-  const handleClick = (id) => {
-    navigate(`/movies/${id}`);
-  };
 
   if (loader) {
     return (
@@ -69,31 +62,16 @@ function Movies() {
         </div>
         <div className="moviesCards">
           {popularMovies?.map((item, index) => (
-            <div key={index} className="card">
-              <div
-                onClick={() => {
-                  dispatch(addFavorite(item));
-                }}
-                className="material-symbols-outlined moreIcon"
-              >
-                favorite
-              </div>
-
-              <img
-                onClick={() => handleClick(item.id)}
-                src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${item.poster_path}`}
-                alt={item.title}
-              />
-              <div className="cardBody">
-                <span>
-                  <CustomCircularProgress
-                    value={Math.round(item.vote_average * 10)}
-                  />
-                </span>
-                <h1>{item.title}</h1>
-                <p>{convertDate(item.release_date)}</p>
-              </div>
-            </div>
+            <CardComponent
+              key={index}
+              item={item}
+              id={item.id}
+              image={item.poster_path}
+              title={item.title}
+              rating={item.vote_average}
+              date={item.release_date}
+              toid={"movies"}
+            />
           ))}
         </div>
       </div>
